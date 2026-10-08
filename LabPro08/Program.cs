@@ -1,4 +1,5 @@
-﻿using System.IO.Pipelines;
+﻿using System.ComponentModel.DataAnnotations;
+using System.IO.Pipelines;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 
@@ -33,15 +34,27 @@ using System.Security.Cryptography.X509Certificates;
 
 
 // Итоговая задача
-System.Console.WriteLine("Рекурсивный анализ числа");
-Console.Write("Введите положительное целое число: ");
-int number = int.Parse(Console.ReadLine()!);
+// System.Console.WriteLine("Рекурсивный анализ числа");
+// Console.Write("Введите положительное целое число: ");
+// int number = int.Parse(Console.ReadLine()!);
+
+// System.Console.WriteLine();
+// System.Console.WriteLine($"Количество цифр: {CountDigits(number)}");
+// System.Console.WriteLine($"Сумма цифр: {sumDigits(number)}");
+// System.Console.WriteLine($"Максимальная цифра: {MaxDigit(number)}");
+// Console.Write("Цифры: "); PrintDigits(number);
+
+
+// Бонус
+System.Console.WriteLine("Бонус");
+Console.Write("Введите число: ");
+int len = int.Parse(Console.ReadLine()!);
 
 System.Console.WriteLine();
-System.Console.WriteLine($"Количество цифр: {CountDigits(number)}");
-System.Console.WriteLine($"Сумма цифр: {sumDigits(number)}");
-System.Console.WriteLine($"Максимальная цифра: {MaxDigit(number)}");
-Console.Write("Цифры: "); PrintDigits(number);
+PrintPattern(len);
+System.Console.WriteLine();
+PrintPattern(len, false);
+
 
 // Я поставил Console.WriteLine после рекурсивного вызова, из-за этого программа сначала доходит до минимального значения (0), а уже потом выводит их по очереди (от меньшего к большему) на экран
 // void CountDown(int n) {
@@ -82,16 +95,16 @@ Console.Write("Цифры: "); PrintDigits(number);
 // }
 
 // Часть 4
-int sumDigits(int n) {
-    if (n == 0) {
-        return 0;
-    }
+// int sumDigits(int n) {
+//     if (n == 0) {
+//         return 0;
+//     }
 
-    int result = n % 10;
-    result += sumDigits(n / 10);
+//     int result = n % 10;
+//     result += sumDigits(n / 10);
 
-    return result;
-}
+//     return result;
+// }
 
 // int Power(int x, int n) {
 //     if (n == 0) {
@@ -106,27 +119,45 @@ int sumDigits(int n) {
 
 
 // Итоговая задача
-int CountDigits(int n) {
-    if (n == 0) return 0;
+// int CountDigits(int n) {
+//     if (n == 0) return 0;
 
-    int result = 1;
-    result += CountDigits(n / 10);
+//     int result = 1;
+//     result += CountDigits(n / 10);
 
-    return result;
-}
+//     return result;
+// }
 
-void PrintDigits(int n) {
-    if (n == 0) return;
+// void PrintDigits(int n) {
+//     if (n == 0) return;
 
-    PrintDigits(n / 10);
-    Console.Write($"{n % 10} ");
-}
+//     PrintDigits(n / 10);
+//     Console.Write($"{n % 10} ");
+// }
 
-int MaxDigit(int n) {
-    if (n == 0) return 0;
+// int MaxDigit(int n) {
+//     if (n == 0) return 0;
 
-    int max = MaxDigit(n / 10);
+//     int max = MaxDigit(n / 10);
 
-    if (n % 10 >= max) return n % 10;
-    else return max;
+//     if (n % 10 >= max) return n % 10;
+//     else return max;
+// }
+
+
+// Бонус
+void PrintPattern(int n, bool topDown = true) {
+    if (n == 0) {
+        return;
+    }
+
+    if (topDown) {
+        PrintPattern(n - 1);
+        string result = new string('*', n);
+        System.Console.WriteLine(result);
+    } else {
+        string result = new string('*', n);
+        System.Console.WriteLine(result);
+        PrintPattern(n - 1, false);
+    }
 }
